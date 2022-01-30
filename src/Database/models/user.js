@@ -4,14 +4,18 @@ import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
     email: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      type: String,
+      required: 'Please add an email address',
       unique: true,
-      validate: { isEmail: true },
+      lowercase: true,
+      match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
     },
-    password: { type: DataTypes.STRING(600), allowNull: false, unique: false },
-    role: { type: DataTypes.ENUM('Admin', 'creator', 'user'), allowNull: true, defaultValue: 'user' },
-    firstName: { type: DataTypes.STRING(5), allowNull: false, unique: false },
-    surName: { type: DataTypes.STRING(5), allowNull: false, unique: false },
-    status: { type: DataTypes.ENUM('Active', 'Inactive'), defaultValue: 'Active' },
-  })
+    password: { type: String, required: 'Please add a password', unique: false },
+    firstName: { type: String, required: 'Firstname can not be empty', unique: false },
+    surName: { type: String, required: 'Surname can not be empty', unique: false },
+    role: { type: String, Enum: ['Admin', 'creator', 'user'], defaultValue: 'user' },
+    status: { type: String, Enum: ['Active', 'Inactive'], defaultValue: 'Active' },
+})
+
+
+export default mongoose.model('User', userSchema)

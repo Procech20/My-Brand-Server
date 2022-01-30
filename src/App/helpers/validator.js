@@ -18,7 +18,7 @@ const Schema = {
         }),
         signup: Joi.object().keys({
                 email: Joi.string().required()
-                        .regex(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, 'email')
+                        .regex(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([[0-9]{2,5}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, 'email')
                         .error(new Error('Please Add a valid email address')),
                 firstName: nameSchema
                         .error(new Error('firstname can only contain letters and numbers')),
@@ -27,6 +27,7 @@ const Schema = {
                 password: stringRequired
                         .regex(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,}$/)
                         .error(new Error('password must be atleast 8 characters with atleast one lowercase letter, one uppercase letter and a special character')),
+                role: Joi.string()
         }),
         login: Joi.object().keys({
                 email: Joi.string().required()

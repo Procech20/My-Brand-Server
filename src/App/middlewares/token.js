@@ -1,6 +1,7 @@
 import ErrorResponse from '../utils/errorRes';
 import userServices from '../../Database/services/user';
-import encryption from '../helpers/encryption';
+import encryption from '../helpers/encryption'
+
 
 const { verifyToken } = encryption;
 
@@ -16,9 +17,9 @@ class RouteProtection {
                                 return ErrorResponse(res, 401, 'Invalid or expired token');
                         }
                         const { id } = info;
-                        const user = await findUser({ id });
-                        if (!user) { return ErrorResponse(res, 404, 'User not found '); }
+                        const user = await findUser({id});
 
+                        if (!user) { return ErrorResponse(res, 404, 'User not found '); }
                         req.user = user;
 
                         return next();
