@@ -3,13 +3,13 @@ import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
 import path from 'path';
 import Sinon from 'sinon';
-import Models from '../Database/models/server';
+import Blog from '../Database/models/blog';
 import app from '../index';
-import { mockBlog } from './mocks/blog.mock';
-import { mockAdmin } from './mocks/user.mock';
+import { mockBlog } from './mocks/blogs.mock';
+import { mockAdmin } from './mocks/users.mock';
 import cloudinary from '../App/config/cloudinary';
 
-const { Blog } = Models;
+
 const signin = async (user) => {
   const userData = await chai.request(app).post('/api/auth/login').send(user);
   const data = {
@@ -31,13 +31,13 @@ describe('Testing Blog routes', () => {
     sandbox.stub(cloudinary, 'upload').resolves({
       url: 'wazaaaaa',
     });
-    await Blog.destroy({
+    await Blog.deleteMany({
       where: { },
       truncate: true,
     });
   });
   afterEach(async () => {
-    await Blog.destroy({
+    await Blog.deleteMany({
       where: { },
       truncate: true,
     });
@@ -50,9 +50,9 @@ describe('Testing Blog routes', () => {
     expect(res.body).to.have.property('message', 'All Blogs retreived successfully');
     const Dummy = await signin(mockAdmin);
     const { token } = Dummy;
-//     const res1 = await chai.request(app).post('/api/blogs').field('title', mockBlog.title).field('description', mockBlog.description)
-//       .attach('photo', path.resolve(__dirname, './mocks/pro.jpg'))
-//       .set('auth', token);
+    const res1 = await chai.request(app).post('/api/blogs').field('title', mockBlog.title).field('description', mockBlog.description)
+      .attach('image', path.resolve(__dirname, './mocks/pro.jpg'))
+      .set('auth', token);
     expect(res1.status).to.be.equal(201);
     expect(res1.body).to.be.a('object');
     expect(res1.body).to.have.property('success', true);
@@ -62,9 +62,9 @@ describe('Testing Blog routes', () => {
     expect(res2.status).to.be.equal(200);
     expect(res2.body).to.be.a('object');
     expect(res2.body).to.have.property('message', 'successfully retrieved Blog');
-//     const res3 = await chai.request(app)
-//       .patch(`/api/blogs/${res1.body.data.id}`).attach('photo', path.resolve(__dirname, './mocks/crop.php.jpg'))
-//       .set('auth', token);
+    const res3 = await chai.request(app)
+      .patch(`/api/blogs/${res1.body.data.id}`).attach('image', path.resolve(__dirname, './mocks/crop.php.jpg'))
+      .set('auth', token);
     expect(res3.status).to.be.equal(201);
     expect(res3.body).to.be.a('object');
     expect(res3.body).to.have.property('success');

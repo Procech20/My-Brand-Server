@@ -1,11 +1,13 @@
+import mongoose from 'mongoose'
 import mocha from 'mocha';
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../index';
-import { mockAdmin, mockUser } from './mocks/user.mock';
-import Models from '../Database/models/server';
+import { mockAdmin, mockUser } from './mocks/users.mock';
+import User from '../Database/models/user';
 
-const { User } = Models;
+const { $ne } = mongoose;
+
 const {
         it, describe, beforeEach, afterEach,
 } = mocha;
@@ -22,13 +24,13 @@ chai.use(chaiHttp);
 
 describe('Testing Users routes', () => {
         beforeEach(async () => {
-                await User.destroy({
-                        where: { email: { [Op.not]: ['admin@techblogs.pro', 'user@techblogs.pro'] } },
+                await User.deleteMany({
+                        where: { email: { $ne: ['admin@techblogs.pro', 'user@techblogs.pro'] } },
                 });
         });
         afterEach(async () => {
-                await User.destroy({
-                        where: { email: { [Op.not]: ['admin@techblogs.pro', 'user@techblogs.pro'] } },
+                await User.deleteMany({
+                        where: { email: { $ne: ['admin@techblogs.pro', 'user@techblogs.pro'] } },
                 });
         });
         it('should Create, Update, Delete and Fetch all or single User.', async () => {

@@ -1,6 +1,7 @@
 import '@babel/polyfill';
 import express, { json } from 'express';
-import dotenv, { config} from 'dotenv';
+import fileupload from 'express-fileupload';
+import { config } from 'dotenv';
 import morgan from 'morgan';
 import 'colors';
 
@@ -11,7 +12,8 @@ import welcome from './App/routes/welcome';
 import connectDB from './Database/config/db.config'
 
 // Load env vars
-config();
+config({path: 'config.env'});
+
 
 // Initialising the app with express
 const app = express();
@@ -20,6 +22,9 @@ app.use(express.urlencoded({ extended: false }));
 
 // Initialise logger middleware
 app.use(logger);
+app.use(morgan('dev'));
+app.use(fileupload({ useTempFiles: true }));
+
 
 // Mounting express json
 app.use(json());
@@ -33,4 +38,6 @@ connectDB()
 
 const PORT = process.env.PORT || 3000
 
-app.listen(PORT, console.log(`Server running in ${process.env.NODE_ENV} on port ${PORT}`.blue.bgGreen.bold));
+app.listen(PORT, console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.blue.dim));
+
+export default app;

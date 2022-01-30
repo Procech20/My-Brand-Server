@@ -35,7 +35,7 @@ export const mockCreator = {
 };
 export const mockuser = {
         email: 'user@techblogs.pro',
-        password: 'User@123',
+        password: 'Jsmith@123',
 };
 export const wrongEmail = {
         email: 'admin@test.test',

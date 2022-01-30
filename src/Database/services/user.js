@@ -1,9 +1,9 @@
-import Models from '../models/server';
+import User from '../models/user';
 
-const { User } = Models;
+
 class userServices {
-        static async findUser(param) {
-                const user = await User.findOne({ where: param });
+        static async findUser({ id: _id }) {
+                const user = await User.findOne({_id});
                 return user;
         }
 
@@ -13,21 +13,17 @@ class userServices {
         }
 
         static async findUsers() {
-                const users = await User.findAll();
-                return users;
+                const users = await User.find().sort({ time: -1 });
+                return {usersCount: users.length, users};
         }
 
-        static async updateUser(user, param) {
-                const updatedUser = await User.update(user, {
-                        where: [param],
-                });
+        static async updateUser(user, {id: _id}) {
+                const updatedUser = await User.findOneAndUpdate(user, {_id});
                 return updatedUser;
         }
 
-        static async deleteOne(param) {
-                const user = await User.destroy({
-                        where: param,
-                });
+        static async deleteOne({id: _id}) {
+                const user = await User.deleteOne({ _id });
                 return user;
         }
 }
