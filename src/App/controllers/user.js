@@ -60,7 +60,7 @@ class UserControllers {
                 if (!foundUser) { return next(new ErrorResponse(res, 404, `Ooops! No user was found with the provided`)); }
                 const user = await updateUser(req.body, { id: req.params.id });
 
-                if (!user) { return next(new ErrorResponse(res, 404, `No user was found with the id :(`)); }
+                if (!user) { return next(new ErrorResponse(res, 404, `No user was found with such id :(`)); }
                 const updatedUser = await findUser({ id: req.params.id });
 
                 return successRes(res, 201, 'successfully updated user', updatedUser);
@@ -72,7 +72,7 @@ class UserControllers {
         static async deleteUser(req, res, next) {
                 try {
                         const user = await deleteOne({ id: req.params.id });
-                        if (!user) { return next(new ErrorResponse(res, 404, `No user was found with} :(`)); }
+                        if (!user) { return next(new ErrorResponse(res, 404, `No user was found with such id :(`)); }
                         return successRes(res, 200, 'Deleted successfully a user', user);
                 } catch (err) {
                         return new ErrorResponse(res, 500, `Unable to delete user; ${err.message}`);
