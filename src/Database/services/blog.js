@@ -1,6 +1,5 @@
-// import Models from '../models/server';
+import Blog from '../models/blog';
 
-const { Blog } = Models;
 
 class blogServices {
   static async findBlog(param) {
@@ -14,19 +13,23 @@ class blogServices {
   }
 
   static async findBlogs() {
-    const blogs = await Blog.findAll();
-    return blogs;
+    const blogs = await Blog.find().sort({ time: -1 });
+    return {blogCount: blogs.length, blogs};
   }
 
+  // static async updateBlog(blog, param) {
+  //   const updatedBlog = await Blog.updateOne(blog, {where: param,});
+  //   return updatedBlog;
+  // }
   static async updateBlog(blog, param) {
-    const updatedBlog = await Blog.update(blog, {
+    const updatedBlog = await Blog.updateOne(blog, {
       where: param,
     });
     return updatedBlog;
   }
 
   static async deleteBlog(param) {
-    const blog = await Blog.destroy({
+    const blog = await Blog.deleteOne({
       where: param,
     });
     return blog;

@@ -26,7 +26,7 @@ export const mockcreator = {
         surName: 'Doe',
 };
 export const mockAdmin = {
-        email: 'admin@techblogs.pro',
+        email: 'superadmin@techblogs.pro',
         password: 'Admin@123',
 };
 export const mockCreator = {
@@ -35,7 +35,7 @@ export const mockCreator = {
 };
 export const mockuser = {
         email: 'user@techblogs.pro',
-        password: 'User@123',
+        password: 'Jsmith@123',
 };
 export const wrongEmail = {
         email: 'admin@test.test',
