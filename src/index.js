@@ -13,7 +13,7 @@ import welcome from './App/routes/welcome';
 import connectDB from './Database/config/db.config'
 
 // Load env vars
-config({path: 'config.env'});
+config();
 
 
 // Initialising the app with express

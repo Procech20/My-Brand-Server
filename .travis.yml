@@ -1,21 +1,24 @@
-sudo: false
 language: node_js
 
 node_js:
-  - 'stable'
+  - "stable"
 
-env:
-  - PORT=5001
+install:
+  - 'npm install'
 
 services:
   - mongodb
 
-script:
-  - npm ci
-  - npm run coverage
+cache:
+  npm: false
 
 notifications:
   email: false
+
+script:
+  - npm ci
+  - npm test
+  - npm run coverage
 
 after_success:
   - npm run coveralls
