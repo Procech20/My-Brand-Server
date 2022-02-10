@@ -11,7 +11,6 @@ const connectDB = async () => {
 				: process.env.NODE_ENV === 'test'
 				? process.env.MONGO_TEST_URL
 				: process.env.MONGO_DEV_URL,
-			{ useNewUrlParser: true },
 		);
 
 		console.log(
