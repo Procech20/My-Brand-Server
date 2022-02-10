@@ -1,7 +1,10 @@
 language: node_js
 
 node_js:
-  - "stable"
+  - 16
+
+env:
+  PORT: 8080
 
 install:
   - 'npm install'
@@ -17,7 +20,6 @@ notifications:
 
 script:
   - npm ci
-  - npm test
   - npm run coverage
 
 after_success:

@@ -1,0 +1,4 @@
+exclude_patterns:
+  - 'src/App/middlewares'
+  - 'src/Database/services
+  - 'src/Test'
