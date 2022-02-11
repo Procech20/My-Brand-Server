@@ -48,7 +48,7 @@
 		"build": "babel ./src --out-dir build",
 		"dev": "nodemon --exec babel-node src/index",
 		"prod": "cross-env NODE_ENV=production nodemon --exec babel-node src/index",
-		"test": "cross-env NODE_ENV=test PORT=5001 mocha --timeout 10000 ./src/Test/**.test.js --require @babel/register --exit",
+		"test": "cross-env mocha --timeout 10000 ./src/Test/**.test.js --require @babel/register --exit",
 		"coveralls": "nyc report --reporter=text-lcov | coveralls",
 		"coverage": "nyc npm run test"
 	},
