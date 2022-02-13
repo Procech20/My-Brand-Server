@@ -3,7 +3,7 @@ import mocha from 'mocha';
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../app';
-import User from '../Database/models/user';
+import User from '../models/user';
 
 const { it, describe, beforeEach, afterEach } = mocha;
 

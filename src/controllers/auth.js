@@ -1,8 +1,8 @@
 import { config } from 'dotenv';
-import userServices from '../../Database/services/user';
+import userServices from '../services/user';
 import successRes from '../utils/successRes';
 import ErrorResponse from '../utils/errorRes';
-import User from '../../Database/models/user';
+import User from '../models/user';
 import encryption from '../helpers/encryption';
 
 config();

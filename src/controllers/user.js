@@ -1,8 +1,8 @@
-import User from '../../Database/models/user';
+import User from '../models/user';
 import successRes from '../utils/successRes';
 import ErrorResponse from '../utils/errorRes';
 import encryption from '../helpers/encryption';
-import userServices from '../../Database/services/user';
+import userServices from '../services/user';
 const { hashPassword } = encryption;
 
 const { createUser, deleteOne, findUser, findUsers, updateUser } = userServices;

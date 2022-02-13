@@ -3,11 +3,11 @@ import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
 import path from 'path';
 import Sinon from 'sinon';
-import Blog from '../Database/models/blog';
-import User from '../Database/models/user';
+import Blog from '../models/blog';
+import User from '../models/user';
 import app from '../index';
 import { mockBlog } from './mocks/blogs.mock';
-import cloudinary from '../App/config/cloudinary';
+import cloudinary from '../config/cloudinary';
 
 const { it, describe, beforeEach, afterEach } = mocha;
 

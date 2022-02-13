@@ -5,10 +5,10 @@ import morgan from 'morgan';
 import cors from 'cors';
 import 'colors';
 
-import logger from './App/middlewares/logger';
-import routes from './App/routes/index';
-import welcome from './App/routes/welcome';
-import connectDB from './Database/config/db.config';
+import logger from './middlewares/logger';
+import routes from './routes/index';
+import welcome from './routes/welcome';
+import connectDB from './config/db.config';
 
 // Initialising the app with express
 const app = express();

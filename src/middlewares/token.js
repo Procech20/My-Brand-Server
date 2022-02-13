@@ -1,5 +1,5 @@
 import ErrorResponse from '../utils/errorRes';
-import userServices from '../../Database/services/user';
+import userServices from '../services/user';
 import encryption from '../helpers/encryption';
 
 const { verifyToken } = encryption;
