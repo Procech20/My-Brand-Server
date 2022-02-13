@@ -96,7 +96,7 @@ describe('Testing Blog errors', () => {
 		expect(res1.body).to.have.property('success', false);
 		expect(res1.body).to.have.property(
 			'message',
-			'No token provided or incomplete token',
+			'Please log in to access the page.',
 		);
 		const res2 = await chai
 			.request(app)
@@ -118,7 +118,7 @@ describe('Testing Blog errors', () => {
 		expect(res3.body).to.have.property('success', false);
 		expect(res3.body).to.have.property(
 			'message',
-			'Only admin allowed to perform such action.',
+			"Ooops! You're not allowed to access this page.",
 		);
 	});
 	it('should Check all Validation errors related to blogs.', async () => {
@@ -151,7 +151,7 @@ describe('Testing Blog errors', () => {
 		expect(res5.body).to.have.property('success', false);
 		expect(res5.body).to.have.property(
 			'message',
-			'Validation error: Please describe your blog in atleast 250 characters!',
+			'Validation error: Blog content must be atleast 250 characters!',
 		);
 		const res6 = await chai
 			.request(app)
@@ -173,7 +173,7 @@ describe('Testing Blog errors', () => {
 		expect(res7.body).to.have.property('success', false);
 		expect(res7.body).to.have.property(
 			'message',
-			'Validation error: Please describe your blog in atleast 250 characters!',
+			'Validation error: Blog content must be atleast 250 characters!',
 		);
 		const res8 = await chai
 			.request(app)
@@ -238,7 +238,7 @@ describe('Testing User errors', () => {
 		expect(res1.body).to.have.property('success', false);
 		expect(res1.body).to.have.property(
 			'message',
-			'No token provided or incomplete token',
+			'Please log in to access the page.',
 		);
 		const res2 = await chai
 			.request(app)
@@ -261,7 +261,7 @@ describe('Testing User errors', () => {
 		expect(res3.body).to.have.property('success', false);
 		expect(res3.body).to.have.property(
 			'message',
-			'Only admin allowed to perform such action.',
+			"Ooops! You're not allowed to access this page.",
 		);
 	});
 	it('should Check all Validation errors related to users.', async () => {
@@ -329,17 +329,17 @@ describe('Testing User errors', () => {
 		expect(res9.body).to.be.a('object');
 		expect(res9.body).to.have.property(
 			'message',
-			'Ooops! No user was found :(',
+			'Ooops! No such User was found :(',
 		);
 		const res10 = await chai
 			.request(app)
-			.delete('/api/users/0aw2e4t3p9dfcd')
+			.delete('/api/users/6209224160f4b57b4788b6d9')
 			.set('auth', token2);
 		expect(res10.status).to.be.equal(404);
 		expect(res10.body).to.be.a('object');
 		expect(res10.body).to.have.property(
 			'message',
-			'No user was found with such id :(',
+			'Ooops! No user was found with the provided id!',
 		);
 	});
 });
