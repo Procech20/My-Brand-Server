@@ -1,7 +1,7 @@
 // import uploader from '../config/cloudinary';
 import successRes from '../utils/successRes';
 import ErrorResponse from '../utils/errorRes';
-import blogServices from '../../Database/services/blog';
+import blogServices from '../services/blog';
 import blogImage from '../middlewares/photo';
 import uploader from '../config/cloudinary';
 const { createBlog, deleteBlog, findBlog, findBlogs, updateBlog } =

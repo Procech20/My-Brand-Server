@@ -3,7 +3,7 @@ import mocha from 'mocha';
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../app';
-import User from '../Database/models/user';
+import User from '../models/user';
 
 const { it, describe, beforeEach, afterEach } = mocha;
 
@@ -35,17 +35,6 @@ describe('Testing Auth routes', () => {
 			'message',
 			'Successfully Registered a user',
 		);
-		const res1 = await chai
-			.request(app)
-			.post('/api/auth/login')
-			.send({ email: res.body.data.email, password: 'Tester@123' });
-		expect(res1.status).to.be.equal(200);
-		expect(res1.body).to.have.property('message', 'User login successful :)');
-
-		const token = `Bearer ${res1.body.data.token}`;
-		const res2 = await chai.request(app).get('/api/auth/me').set('auth', token);
-		expect(res2.status).to.be.equal(200);
-		expect(res2.body).to.have.property('message', 'User is logged in!');
 	});
 	it('should login user.', async () => {
 		const res = await chai.request(app).post('/api/auth/register').send(tester);

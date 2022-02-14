@@ -1,8 +1,8 @@
 import { config } from 'dotenv';
-import userServices from '../../Database/services/user';
+import userServices from '../services/user';
 import successRes from '../utils/successRes';
 import ErrorResponse from '../utils/errorRes';
-import User from '../../Database/models/user';
+import User from '../models/user';
 import encryption from '../helpers/encryption';
 
 config();
@@ -79,12 +79,17 @@ class Auth {
 			if (!isMatch) return ErrorResponse(res, 401, 'Invalid credentials');
 
 			const token = await signToken({
-				id: foundUser.id,
+				id: foundUser._id,
 				email: foundUser.email,
+				firstName: foundUser.firstName,
+				surName: foundUser.surName,
+				role: foundUser.role,
 			});
+			const { _id, role } = foundUser;
 			return successRes(res, 200, 'User login successful :)', {
 				token,
-				foundUser,
+				_id,
+				role,
 			});
 		} catch (err) {
 			return next(

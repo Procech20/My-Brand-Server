@@ -1,8 +1,8 @@
-import User from '../../Database/models/user';
+import User from '../models/user';
 import successRes from '../utils/successRes';
 import ErrorResponse from '../utils/errorRes';
 import encryption from '../helpers/encryption';
-import userServices from '../../Database/services/user';
+import userServices from '../services/user';
 const { hashPassword } = encryption;
 
 const { createUser, deleteOne, findUser, findUsers, updateUser } = userServices;
@@ -25,12 +25,11 @@ class UserControllers {
 		if (!user) {
 			return next(new ErrorResponse(res, 404, `No user found with such id :(`));
 		}
-		const { email, firstName, surName, role } = user;
+		const { email, firstName, surName } = user;
 		return successRes(res, 200, 'successfully retrieved user', {
 			email,
 			firstName,
 			surName,
-			role,
 		});
 	}
 	// @desc  Create new User

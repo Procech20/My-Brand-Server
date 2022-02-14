@@ -3,8 +3,8 @@ import mocha from 'mocha';
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
 import path from 'path';
-import Blog from '../Database/models/blog';
-import User from '../Database/models/user';
+import Blog from '../models/blog';
+import User from '../models/user';
 import app from '../index';
 import {
 	mockBlog,
