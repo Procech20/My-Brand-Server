@@ -5,7 +5,6 @@ import path from 'path';
 import app from '../index';
 import { mockBlog, mockblog2, mockblog3 } from './mocks/blogs.mock';
 import { emptyEmail } from './mocks/users.mock';
-import { log } from 'console';
 
 const { it, describe } = mocha;
 

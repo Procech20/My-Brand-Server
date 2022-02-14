@@ -1,10 +1,9 @@
-import mongoose from 'mongoose';
 import mocha from 'mocha';
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../index';
-import { mockUser } from './mocks/users.mock';
-import User from '../Database/models/user';
+import Querry from '../models/querry';
+import User from '../models/user';
 
 const { it, describe, beforeEach, afterEach } = mocha;
 
@@ -15,28 +14,30 @@ const tester = {
 	surName: 'Doe',
 	role: 'Admin',
 };
-const user = {
+const querry = {
 	email: 'user@techblogs.pro',
-	password: 'User@123',
-	firstName: 'James',
-	surName: 'Doe',
+	names: 'Querry Tester',
+	project: 'Querry Project',
+	message: "Doens't matter",
 };
 
 chai.expect();
 chai.use(chaiHttp);
 
-describe('Testing Users routes', () => {
+describe('Testing Querry routes', () => {
 	beforeEach(async () => {
-		await User.deleteMany({
-			where: { email: { $not: ['admin@techblogs.pro', 'user@techblogs.pro'] } },
-		});
+		await Querry.deleteMany({});
 	});
 	afterEach(async () => {
-		await User.deleteMany({
-			where: { email: { $not: ['admin@techblogs.pro', 'user@techblogs.pro'] } },
-		});
+		await Querry.deleteMany({});
 	});
-	it('should Fetch all Users.', async () => {
+	beforeEach(async () => {
+		await User.deleteMany({});
+	});
+	afterEach(async () => {
+		await User.deleteMany({});
+	});
+	it('should Fetch all Querries.', async () => {
 		const signup = await chai
 			.request(app)
 			.post('/api/auth/register')
@@ -47,14 +48,14 @@ describe('Testing Users routes', () => {
 		});
 		const token = `Bearer ${signin.body.data.token}`;
 
-		const res = await chai.request(app).get('/api/users').set('auth', token);
+		const res = await chai.request(app).get('/api/querries').set('auth', token);
 		expect(res.status).to.be.equal(200);
 		expect(res.body).to.have.property(
 			'message',
-			'All users retreived successfully',
+			'All querries retreived successfully',
 		);
 	});
-	it('should Create User.', async () => {
+	it('should Create Querry.', async () => {
 		const signup = await chai
 			.request(app)
 			.post('/api/auth/register')
@@ -67,11 +68,14 @@ describe('Testing Users routes', () => {
 
 		const res2 = await chai
 			.request(app)
-			.post('/api/users')
+			.post('/api/querries')
 			.set('auth', token)
-			.send(user);
+			.send(querry);
 		expect(res2.status).to.be.equal(201);
-		expect(res2.body).to.have.property('message', 'Successfully created user');
+		expect(res2.body).to.have.property(
+			'message',
+			'Successfully created querry',
+		);
 	});
 	it('should Update User.', async () => {
 		const signup = await chai
@@ -86,18 +90,19 @@ describe('Testing Users routes', () => {
 
 		const res2 = await chai
 			.request(app)
-			.post('/api/users')
+			.post('/api/querries')
 			.set('auth', token)
-			.send(user);
-		const mock = await User.findOne({ email: res2.body.data.email });
-		const { _id } = mock;
+			.send(querry);
 		const res3 = await chai
 			.request(app)
-			.patch(`/api/users/${_id}`)
+			.patch(`/api/querries/${res2.body.data._id}`)
 			.set('auth', token)
-			.send({ firstName: 'Johnny' });
+			.send({ names: 'Tester Again' });
 		expect(res3.status).to.be.equal(201);
-		expect(res3.body).to.have.property('message', 'successfully updated user');
+		expect(res3.body).to.have.property(
+			'message',
+			'successfully updated Querry',
+		);
 	});
 	it('should Retrieve User.', async () => {
 		const signup = await chai
@@ -112,21 +117,18 @@ describe('Testing Users routes', () => {
 
 		const res2 = await chai
 			.request(app)
-			.post('/api/users')
+			.post('/api/querries')
 			.set('auth', token)
-			.send(user);
-
-		const mock = await User.findOne({ email: res2.body.data.email });
-		const { _id } = mock;
+			.send(querry);
 
 		const res1 = await chai
 			.request(app)
-			.get(`/api/users/${_id}`)
+			.get(`/api/querries/${res2.body.data._id}`)
 			.set('auth', token);
 		expect(res1.status).to.be.equal(200);
 		expect(res1.body).to.have.property(
 			'message',
-			'successfully retrieved user',
+			'successfully retrieved querry',
 		);
 	});
 	it('should Delete User.', async () => {
@@ -142,16 +144,13 @@ describe('Testing Users routes', () => {
 
 		const res2 = await chai
 			.request(app)
-			.post('/api/users')
+			.post('/api/querries')
 			.set('auth', token)
-			.send(user);
-
-		const mock = await User.findOne({ email: res2.body.data.email });
-		const { _id } = mock;
+			.send(querry);
 
 		const res1 = await chai
 			.request(app)
-			.delete(`/api/users/${_id}`)
+			.delete(`/api/querries/${res2.body.data._id}`)
 			.set('auth', token);
 		expect(res1.status).to.be.equal(204);
 		expect(res1.body).to.be.a('object');
