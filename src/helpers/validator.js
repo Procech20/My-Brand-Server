@@ -29,6 +29,12 @@ const Schema = {
 			.max(500)
 			.error(new Error('Blog content must be atleast 250 characters!')),
 	}),
+	comment: Joi.object().keys({
+		message: Joi.string()
+			.required()
+			.trim()
+			.error(new Error('Please add a message')),
+	}),
 	signup: Joi.object().keys({
 		email: Joi.string()
 			.required()

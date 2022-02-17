@@ -3,7 +3,7 @@ import successRes from '../utils/successRes';
 import ErrorResponse from '../utils/errorRes';
 import blogServices from '../services/blog';
 import blogImage from '../middlewares/photo';
-import uploader from '../config/cloudinary';
+import Comment from '../models/comment';
 const { createBlog, deleteBlog, findBlog, findBlogs, updateBlog } =
 	blogServices;
 
@@ -120,6 +120,29 @@ class BlogControllers {
 					res,
 					500,
 					`There was an error while deleting blog... ${err.message}`,
+				),
+			);
+		}
+	}
+	static async comment(req, res, next) {
+		try {
+			const blog = await findBlog({ id: req.params.id });
+			const { message } = req.body;
+			const comment = await Comment.create({
+				message,
+			});
+
+			blog.comments.push(comment.id);
+			blog.commentCounts += 1;
+			await blog.save();
+
+			return successRes(res, 201, `comment successfully created, ${comment}`);
+		} catch (err) {
+			return next(
+				new ErrorResponse(
+					res,
+					500,
+					`There was an error while creating comment... ${err.message}`,
 				),
 			);
 		}
