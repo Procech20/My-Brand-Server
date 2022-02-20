@@ -72,7 +72,7 @@ router
 	 *       '500':
 	 *             description: There was an error while creating Blog.
 	 * */
-	.post(protect, isAdmin, routeValidators.blogValidate, createBlog);
+	.post(protect, isAdmin, createBlog);
 
 router
 	.route('/:id')

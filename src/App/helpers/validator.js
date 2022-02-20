@@ -17,23 +17,17 @@ const Schema = {
 		content: Joi.string()
 			.required()
 			.min(250)
-			.error(new Error('Blog content must be atleast 250 characters!')),
+			.error(new Error('Please describe your blog in atleast 250 characters!')),
 	}),
 	blogUpdate: Joi.object().keys({
 		title: Joi.string()
 			.trim()
 			.min(10)
 			.error(new Error('Title must be atleast 10 characters!')),
-		content: Joi.string()
-			.trim()
-			.min(250)
-			.error(new Error('Blog content must be atleast 250 characters!')),
-	}),
-	comment: Joi.object().keys({
-		message: Joi.string()
-			.required()
-			.trim()
-			.error(new Error('Please add a message')),
+		description: Joi.string()
+			.min(25)
+			.max(500)
+			.error(new Error('Description must be atleast 250 characters!')),
 	}),
 	signup: Joi.object().keys({
 		email: Joi.string()

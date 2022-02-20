@@ -1,42 +1,58 @@
 import schema from '../helpers/validator';
 import ErrorResponse from '../utils/errorRes';
 
-const {
-        blogCreate, blogUpdate, signup, login,
-} = schema;
+const { blogCreate, blogUpdate, signup, login, comment } = schema;
 
 class RouteValidators {
-        static blogValidate(req, res, next) {
-                const { error } = blogCreate.validate(req.body);
+	static blogValidate(req, res, next) {
+		const { error } = blogCreate.validate(req.body);
 
-                if (error) { return ErrorResponse(res, 400, `Validation error: ${error.message}`); }
+		if (error) {
+			return ErrorResponse(res, 400, `Validation error: ${error.message}`);
+		}
 
-                return next();
-        }
+		return next();
+	}
 
-        static updateValidate(req, res, next) {
-                const { error } = blogUpdate.validate(req.body);
+	static updateValidate(req, res, next) {
+		const { error } = blogUpdate.validate(req.body);
 
-                if (error) { return ErrorResponse(res, 400, `Validation error: ${error.message}`); }
+		if (error) {
+			return ErrorResponse(res, 400, `Validation error: ${error.message}`);
+		}
 
-                return next();
-        }
+		return next();
+	}
 
-        static loginValidate(req, res, next) {
-                const { error } = login.validate(req.body);
+	static commentValidate(req, res, next) {
+		const { error } = comment.validate(req.body);
 
-                if (error) { return ErrorResponse(res, 400, `Validation error: ${error.message}`); }
+		if (error) {
+			return ErrorResponse(res, 400, `Validation error: ${error.message}`);
+		}
 
-                return next();
-        }
+		return next();
+	}
 
-        static signupValidate(req, res, next) {
-                const { error } = signup.validate(req.body);
+	static loginValidate(req, res, next) {
+		const { error } = login.validate(req.body);
 
-                if (error) { return ErrorResponse(res, 400, `Validation error: ${error.message}`); }
+		if (error) {
+			return ErrorResponse(res, 400, `Validation error: ${error.message}`);
+		}
 
-                return next();
-        }
+		return next();
+	}
+
+	static signupValidate(req, res, next) {
+		const { error } = signup.validate(req.body);
+
+		if (error) {
+			return ErrorResponse(res, 400, `Validation error: ${error.message}`);
+		}
+
+		return next();
+	}
 }
 
 export default RouteValidators;

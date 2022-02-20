@@ -1,5 +1,6 @@
 exclude_patterns:
   - 'src/controllers'
+  - 'src/helpers'
   - 'src/middlewares'
   - 'src/routes'
   - 'src/services'
